@@ -1,0 +1,11 @@
+C:\Users\chandra.t\Desktop\CarPoolingEf\CarPoolingEf.Service\bin\Debug\netstandard2.0\CarPoolingEf.Service.deps.json
+C:\Users\chandra.t\Desktop\CarPoolingEf\CarPoolingEf.Service\bin\Debug\netstandard2.0\CarPoolingEf.Service.dll
+C:\Users\chandra.t\Desktop\CarPoolingEf\CarPoolingEf.Service\obj\Debug\netstandard2.0\CarPoolingEf.Service.csprojAssemblyReference.cache
+C:\Users\chandra.t\Desktop\CarPoolingEf\CarPoolingEf.Service\obj\Debug\netstandard2.0\CarPoolingEf.Service.AssemblyInfoInputs.cache
+C:\Users\chandra.t\Desktop\CarPoolingEf\CarPoolingEf.Service\obj\Debug\netstandard2.0\CarPoolingEf.Service.AssemblyInfo.cs
+C:\Users\chandra.t\Desktop\CarPoolingEf\CarPoolingEf.Service\bin\Debug\netstandard2.0\CarPoolingEf.Model.dll
+C:\Users\chandra.t\Desktop\CarPoolingEf\CarPoolingEf.Service\bin\Debug\netstandard2.0\CarPoolingEf.Model.pdb
+C:\Users\chandra.t\Desktop\CarPoolingEf\CarPoolingEf.Service\obj\Debug\netstandard2.0\CarPoolingEf.Service.csproj.CopyComplete
+C:\Users\chandra.t\Desktop\CarPoolingEf\CarPoolingEf.Service\bin\Debug\netstandard2.0\CarPoolingEf.Service.pdb
+C:\Users\chandra.t\Desktop\CarPoolingEf\CarPoolingEf.Service\obj\Debug\netstandard2.0\CarPoolingEf.Service.dll
+C:\Users\chandra.t\Desktop\CarPoolingEf\CarPoolingEf.Service\obj\Debug\netstandard2.0\CarPoolingEf.Service.pdb
