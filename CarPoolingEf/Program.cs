@@ -329,10 +329,10 @@ namespace CarPoolingEf
                         Console.Write(bookings.IndexOf(offer) + 1);
                         Display.BookingRequest(offer);
                     }
-                    Console.Write("Select any of the booking or for exit press 0");
 
                     while (true)
                     {
+                        Console.Write("Select any of the booking or for exit press 0");
                         int choice = Helper.ValidInteger();
                         if (choice <= bookings.Count && choice != 0)
                         {

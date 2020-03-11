@@ -25,7 +25,7 @@ namespace CarPoolingEf.Services.Services
             ride.RideDate = DateTime.Now;
             ride.Id = Guid.NewGuid().ToString();
             ride.Status = Models.Client.RideStatus.Pending;
-            this.Db.Rides.Add(AppService.Mapping<Models.Client.Ride, Models.Data.Ride>().Map<Models.Client.Ride, Models.Data.Ride>(ride));
+            this.Db.Rides.Add(Mapper.Map<Models.Client.Ride, Models.Data.Ride>(ride));
 
             return this.Db.SaveChanges() > 0;
         }
@@ -43,7 +43,7 @@ namespace CarPoolingEf.Services.Services
                     viaPoints.IndexOf(viaPoints.FirstOrDefault(a => a.City.Equals(booking.From, StringComparison.InvariantCultureIgnoreCase))) 
                     && ride.TravelDate == booking.TravelDate && ride.AvailableSeats > 0)
                 {
-                    rides.Add(AppService.Mapping<Models.Data.Ride, Models.Client.Ride>().Map<Models.Data.Ride,Models.Client.Ride>(ride));
+                    rides.Add(Mapper.Map<Models.Data.Ride,Models.Client.Ride>(ride));
                 }
             }
 
@@ -76,7 +76,7 @@ namespace CarPoolingEf.Services.Services
 
         public bool ModifyRide(Models.Client.Ride newRide, string id)
         {
-            Models.Data.Ride oldRide = AppService.Mapping<Models.Client.Ride, Models.Data.Ride>().Map < Models.Client.Ride, Models.Data.Ride > (this.GetRide(id));
+            Models.Data.Ride oldRide = Mapper.Map < Models.Client.Ride, Models.Data.Ride > (this.GetRide(id));
             if (oldRide != null)
             {
                 oldRide.RideDate = newRide.RideDate;
@@ -90,13 +90,13 @@ namespace CarPoolingEf.Services.Services
 
         public Models.Client.Ride GetRide(string id)
         {
-            return AppService.Mapping<Models.Data.Ride, Models.Client.Ride>().Map<Models.Data.Ride, Models.Client.Ride>(this.Db.Rides?.FirstOrDefault(ride => ride.Id == id));
+            return Mapper.Map<Models.Data.Ride, Models.Client.Ride>(this.Db.Rides?.FirstOrDefault(ride => ride.Id == id));
         }
 
         public List<Models.Client.Ride> GetRides(string ownerId)
         
         {
-            return AppService.Mapping<Models.Data.Ride, Models.Client.Ride>().Map<List<Models.Data.Ride>, List<Models.Client.Ride>>(this.Db.Rides?.Where(ride => ride.OwnerId == ownerId).ToList());
+            return Mapper.Map<List<Models.Data.Ride>, List<Models.Client.Ride>>(this.Db.Rides?.Where(ride => ride.OwnerId == ownerId).ToList());
         }
     }
 }

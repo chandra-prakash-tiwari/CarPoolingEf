@@ -22,8 +22,7 @@ namespace CarPoolingEf.Services.Services
             {
                 car.Id = Guid.NewGuid().ToString();
                 car.OwnerId = ownerId;
-                var abc=AppService.Mapping<Models.Client.Car, Models.Data.Car>();
-                this.Db.Cars.Add(AppService.Mapping<Models.Client.Car, Models.Data.Car>().Map<Models.Client.Car, Models.Data.Car>(car));
+                this.Db.Cars.Add(Mapper.Map<Models.Client.Car, Models.Data.Car>(car));
                 return this.Db.SaveChanges() > 0;
             }
 
@@ -32,12 +31,12 @@ namespace CarPoolingEf.Services.Services
 
         public List<Models.Client.Car> GetCarsByUser(string id)
         {
-            return AppService.Mapping<Models.Data.Car, Models.Client.Car>().Map<List<Models.Data.Car>, List<Models.Client.Car>>(this.Db.Cars?.Where(a => a.OwnerId == id).Select(a => a).ToList());
+            return Mapper.Map<List<Models.Data.Car>, List<Models.Client.Car>>(this.Db.Cars?.Where(a => a.OwnerId == id).Select(a => a).ToList());
         }
 
         public Models.Client.Car GetCar(string id)
         {
-            return AppService.Mapping<Models.Data.Car, Models.Client.Car>().Map<Models.Data.Car, Models.Client.Car>(this.Db.Cars?.FirstOrDefault(a => a.Id == id));
+            return Mapper.Map<Models.Data.Car, Models.Client.Car>(this.Db.Cars?.FirstOrDefault(a => a.Id == id));
         }
     }
 }
