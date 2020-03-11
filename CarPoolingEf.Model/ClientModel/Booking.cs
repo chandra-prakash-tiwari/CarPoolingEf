@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CarPoolingEf.Models
+namespace CarPoolingEf.Models.Client
 {
     public class Booking
     {

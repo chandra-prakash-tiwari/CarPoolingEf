@@ -1,32 +1,26 @@
-﻿using CarPoolingEf;
-using CarPoolingEf.Model;
-using CarPoolingEf.Models;
+﻿
 using CarPoolingEf.Services.Interfaces;
 using CarPoolingEf.Services.Services;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace CarPoolingEf
 {
-    public class AppServices
+    public class AppService
     {
-        public static User CurrentUser { get; set; }
+        public static string CurrentUserId { get; set; }
 
         public static IBookingService BookingService { get; set; }
 
-        public static ICarServices CarServices { get; set; }
+        public static ICarService CarServices { get; set; }
 
-        public static IRideServices RideServices { get; set; }
+        public static IRideService RideServices { get; set; }
 
-        public static IUserServices UserServices { get; set; }
+        public static IUserService UserService { get; set; }
 
-        public static void Initialize(string userId, IUserServices userServices, CarPoolingEfContext context)
+        public static void Initialize(string userId, IUserService userService, CarPoolingEfContext context)
         {
-            CurrentUser = userServices.GetUser(userId);
+            CurrentUserId = userId;
 
-            UserServices = userServices;
+            UserService = userService;
 
             BookingService = new BookingService(context);
 

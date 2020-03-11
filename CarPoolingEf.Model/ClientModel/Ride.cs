@@ -1,9 +1,6 @@
-﻿using CarPoolingEf.Model;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
-
-namespace CarPoolingEf.Models
+namespace CarPoolingEf.Models.Client
 {
     public class Ride
     {
@@ -30,11 +27,5 @@ namespace CarPoolingEf.Models
         public string ViaPoints { get; set; }
 
         public RideStatus Status { get; set; }
-
-        public virtual ICollection<Booking> Bookings { get; set; }
-
-        public virtual User Owner { get; set; }
-
-        public virtual Car Car{ get; set; }
     }
 }

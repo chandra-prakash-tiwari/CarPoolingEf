@@ -1,6 +1,4 @@
-﻿using CarPoolingEf;
-using CarPoolingEf.Model;
-using CarPoolingEf.Models;
+﻿using CarPoolingEf.Models.Client;
 using CarPoolingEf.Services.Interfaces;
 using Newtonsoft.Json;
 using System;
@@ -11,7 +9,7 @@ namespace CarPoolingEf
 {
     public class UserInput
     {
-        public static User NewUser(IUserServices userService)
+        public static User NewUser(IUserService userService)
         {
             User user = new User();
             while (true)

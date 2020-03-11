@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace CarPoolingEf.Services.Interfaces
 {
-    public interface ICarServices
+    public interface ICarService
     {
-        bool AddNewCar(Car car,string ownerId);
+        bool AddNewCar(Models.Client.Car car, string ownerId);
 
-        List<Car> GetCarsByUser(string id);
+        List<Models.Client.Car> GetCarsByUser(string id);
 
-        Car GetCar(string id);
+        Models.Client.Car GetCar(string id);
     }
 }

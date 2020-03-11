@@ -1,5 +1,5 @@
-﻿using CarPoolingEf.Model;
-using CarPoolingEf.Models;
+﻿
+using CarPoolingEf.Models.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarPoolingEf

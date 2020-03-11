@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CarPoolingEf.Models
+namespace CarPoolingEf.Models.Client
 {
     public class Car
     {
@@ -13,9 +13,5 @@ namespace CarPoolingEf.Models
         public int NoofSeat { get; set; }
 
         public string OwnerId { get; set; }
-        
-        public virtual User Owner { get; set; }
-
-        public virtual ICollection<Ride> Rides { get; set; }
     }
 }

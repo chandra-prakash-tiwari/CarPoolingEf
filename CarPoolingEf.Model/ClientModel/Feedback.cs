@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarPoolingEf.Models
+namespace CarPoolingEf.Models.Client
 {
     public class Feedback
     {

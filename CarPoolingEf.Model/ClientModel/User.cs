@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CarPoolingEf.Models
+namespace CarPoolingEf.Models.Client
 {
     public class User
     {
@@ -22,11 +22,5 @@ namespace CarPoolingEf.Models
         public string DrivingLicence { get; set; }
 
         public float Rating { get; set; }
-
-        public virtual ICollection<Booking> Bookings { get; set; }
-
-        public virtual ICollection<Car> Cars { get; set; }
-
-        public virtual ICollection<Ride> Rides { get; set; }
     }
 }

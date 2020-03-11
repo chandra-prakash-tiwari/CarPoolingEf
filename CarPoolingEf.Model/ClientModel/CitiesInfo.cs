@@ -1,7 +1,15 @@
 ﻿using System.Collections.Generic;
 
-namespace CarPoolingEf.Models
+namespace CarPoolingEf.Models.Client
 {
+    public class Place
+    {
+        public string City { get; set; }
+
+        public int Pincode { get; set; }
+    }
+
+
     public static class CitiesInfo
     {
         public static List<Place> Cities { get; set; }

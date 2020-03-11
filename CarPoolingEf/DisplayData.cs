@@ -1,5 +1,4 @@
-﻿using CarPoolingEf.Model;
-using CarPoolingEf.Models;
+﻿using CarPoolingEf.Models.Client;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
