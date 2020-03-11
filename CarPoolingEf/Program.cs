@@ -74,7 +74,7 @@ namespace CarPoolingEf
                             {
                                 Console.WriteLine((cars.IndexOf(car) + 1) + ". " + car.Model + " " + car.Number + "\n");
                             }
-                            Console.WriteLine("Select one car for create ride or for returing mainmenu press 0");
+                            Console.WriteLine(Constant.CarSelection);
                             while (true)
                             {
                                 int choice = Helper.ValidInteger();
@@ -138,8 +138,11 @@ namespace CarPoolingEf
                                         Status = Models.Client.BookingStatus.Pending,
                                         BookerId= AppService.CurrentUserId
                                     };
-                                    if (AppService.BookingService.CreateBooking(booking, rides[choice - 1].Id)&&AppService.CurrentUserId!=rides[choice-1].OwnerId)
+                                    if (AppService.CurrentUserId != rides[choice - 1].OwnerId)
+                                    {
+                                        AppService.BookingService.CreateBooking(booking, rides[choice - 1].Id);
                                         Console.WriteLine(Constant.RequestSentToOwner);
+                                    }         
                                     else
                                         Console.WriteLine(Constant.InvalidBookingRequest);
 
