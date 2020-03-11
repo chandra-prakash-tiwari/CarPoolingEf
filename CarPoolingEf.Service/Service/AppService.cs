@@ -1,6 +1,8 @@
 ﻿
+using AutoMapper;
 using CarPoolingEf.Services.Interfaces;
 using CarPoolingEf.Services.Services;
+using System.Web.Mvc;
 
 namespace CarPoolingEf
 {
@@ -16,6 +18,8 @@ namespace CarPoolingEf
 
         public static IUserService UserService { get; set; }
 
+        private static MapperConfiguration Config { get; set; }
+
         public static void Initialize(string userId, IUserService userService, CarPoolingEfContext context)
         {
             CurrentUserId = userId;
@@ -27,6 +31,16 @@ namespace CarPoolingEf
             CarServices = new CarServices(context);
 
             RideServices = new RideServices(context, BookingService);
+        }
+
+        public static IMapper Mapping<Tsource, TDesc>()
+        {
+            Config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Tsource, TDesc>();
+            });
+
+            return Config.CreateMapper(); ;
         }
     }
 }

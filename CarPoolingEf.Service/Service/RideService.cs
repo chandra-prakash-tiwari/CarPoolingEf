@@ -13,33 +13,11 @@ namespace CarPoolingEf.Services.Services
 
         private IBookingService BookingService { get; set; }
 
-        private MapperConfiguration DTCConfig { get; set; }
-
-        private MapperConfiguration CTDConfig { get; set; }
-
-        private IMapper DTCMapper { get; set; }
-
-        private IMapper CTDMapper { get; set; }
-
         public RideServices(CarPoolingEfContext context, IBookingService bookingService)
         {
             this.Db = context;
 
             this.BookingService = bookingService;
-
-            this.CTDConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Models.Client.Ride, Models.Data.Ride>();
-            });
-
-            this.DTCConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Models.Data.Ride, Models.Client.Ride>();
-            });
-
-            this.CTDMapper = this.CTDConfig.CreateMapper();
-
-            this.DTCMapper = this.DTCConfig.CreateMapper();
         }
 
         public bool CreateRide(Models.Client.Ride ride)
@@ -47,7 +25,7 @@ namespace CarPoolingEf.Services.Services
             ride.RideDate = DateTime.Now;
             ride.Id = Guid.NewGuid().ToString();
             ride.Status = Models.Client.RideStatus.Pending;
-            this.Db.Rides.Add(this.CTDMapper.Map<Models.Client.Ride, Models.Data.Ride>(ride));
+            this.Db.Rides.Add(AppService.Mapping<Models.Client.Ride, Models.Data.Ride>().Map<Models.Client.Ride, Models.Data.Ride>(ride));
 
             return this.Db.SaveChanges() > 0;
         }
@@ -65,7 +43,7 @@ namespace CarPoolingEf.Services.Services
                     viaPoints.IndexOf(viaPoints.FirstOrDefault(a => a.City.Equals(booking.From, StringComparison.InvariantCultureIgnoreCase))) 
                     && ride.TravelDate == booking.TravelDate && ride.AvailableSeats > 0)
                 {
-                    rides.Add(this.DTCMapper.Map<Models.Data.Ride,Models.Client.Ride>(ride));
+                    rides.Add(AppService.Mapping<Models.Data.Ride, Models.Client.Ride>().Map<Models.Data.Ride,Models.Client.Ride>(ride));
                 }
             }
 
@@ -98,7 +76,7 @@ namespace CarPoolingEf.Services.Services
 
         public bool ModifyRide(Models.Client.Ride newRide, string id)
         {
-            Models.Data.Ride oldRide = this.CTDMapper.Map < Models.Client.Ride, Models.Data.Ride > (this.GetRide(id));
+            Models.Data.Ride oldRide = AppService.Mapping<Models.Client.Ride, Models.Data.Ride>().Map < Models.Client.Ride, Models.Data.Ride > (this.GetRide(id));
             if (oldRide != null)
             {
                 oldRide.RideDate = newRide.RideDate;
@@ -112,13 +90,13 @@ namespace CarPoolingEf.Services.Services
 
         public Models.Client.Ride GetRide(string id)
         {
-            return this.DTCMapper.Map<Models.Data.Ride, Models.Client.Ride>(this.Db.Rides?.FirstOrDefault(ride => ride.Id == id));
+            return AppService.Mapping<Models.Data.Ride, Models.Client.Ride>().Map<Models.Data.Ride, Models.Client.Ride>(this.Db.Rides?.FirstOrDefault(ride => ride.Id == id));
         }
 
         public List<Models.Client.Ride> GetRides(string ownerId)
         
         {
-            return this.DTCMapper.Map<List<Models.Data.Ride>, List<Models.Client.Ride>>(this.Db.Rides?.Where(ride => ride.OwnerId == ownerId).ToList());
+            return AppService.Mapping<Models.Data.Ride, Models.Client.Ride>().Map<List<Models.Data.Ride>, List<Models.Client.Ride>>(this.Db.Rides?.Where(ride => ride.OwnerId == ownerId).ToList());
         }
     }
 }

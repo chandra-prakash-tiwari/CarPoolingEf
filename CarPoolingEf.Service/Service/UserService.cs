@@ -9,43 +9,21 @@ namespace CarPoolingEf.Services.Services
     {
         private CarPoolingEfContext Db { get; set; }
 
-        private MapperConfiguration DTCConfig { get; set; }
-
-        private MapperConfiguration CTDConfig { get; set; }
-
-        private IMapper DTCMapper { get; set; }
-
-        private IMapper CTDMapper { get; set; }
-
         public UserService(CarPoolingEfContext context)
         {
             this.Db = context;
-
-            this.CTDConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Models.Client.User, Models.Data.User>();
-            });
-
-            this.DTCConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap< Models.Data.User, Models.Client.User>();
-            });
-
-            this.CTDMapper = this.CTDConfig.CreateMapper();
-
-            this.DTCMapper = this.DTCConfig.CreateMapper();
         }
 
         public bool AddNewUser(Models.Client.User user)
         {
             user.Id = Guid.NewGuid().ToString();
-            this.Db.Users.Add(this.CTDMapper.Map<Models.Client.User, Models.Data.User>(user));
+            this.Db.Users.Add(AppService.Mapping<Models.Client.User, Models.Data.User>().Map<Models.Client.User, Models.Data.User>(user));
             return this.Db.SaveChanges() > 0;
         }
 
         public Models.Client.User Authentication(Models.Client.Login credentials)
         {
-            return this.DTCMapper.Map<Models.Data.User, Models.Client.User>(this.Db.Users?.FirstOrDefault(a => a.UserName == credentials.UserName && a.Password == credentials.Password));
+            return AppService.Mapping<Models.Data.User, Models.Client.User>().Map<Models.Data.User, Models.Client.User>(this.Db.Users?.FirstOrDefault(a => a.UserName == credentials.UserName && a.Password == credentials.Password));
         }
 
         public bool DeleteUser(string id)
@@ -71,7 +49,7 @@ namespace CarPoolingEf.Services.Services
 
         public Models.Client.User GetUser(string id)
         {
-            return this.DTCMapper.Map < Models.Data.User, Models.Client.User > (this.Db.Users?.FirstOrDefault(a => a.Id == id));
+            return AppService.Mapping<Models.Data.User, Models.Client.User>().Map < Models.Data.User, Models.Client.User > (this.Db.Users?.FirstOrDefault(a => a.Id == id));
         }
 
         public bool CheckUserName(string userName)

@@ -138,7 +138,7 @@ namespace CarPoolingEf
                                         Status = Models.Client.BookingStatus.Pending,
                                         BookerId= AppService.CurrentUserId
                                     };
-                                    if (AppService.BookingService.CreateBooking(booking, rides[choice - 1].Id))
+                                    if (AppService.BookingService.CreateBooking(booking, rides[choice - 1].Id)&&AppService.CurrentUserId!=rides[choice-1].OwnerId)
                                         Console.WriteLine(Constant.RequestSentToOwner);
                                     else
                                         Console.WriteLine(Constant.InvalidBookingRequest);

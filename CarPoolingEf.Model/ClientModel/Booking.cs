@@ -21,10 +21,6 @@ namespace CarPoolingEf.Models.Client
         public DateTime TravelDate { get; set; }
 
         public BookingStatus Status { get; set; }
-
-        public virtual Ride Ride { get; set; }
-
-        public virtual User Booker { get; set; }
     }
 
     public class SearchRideRequest

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CarPoolingEf.Services.Interfaces;
 using System;
+using CarPoolingEf;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,31 +11,9 @@ namespace CarPoolingEf.Services.Services
     {
         private CarPoolingEfContext Db { get; set; }
 
-        private MapperConfiguration DTCConfig { get; set; }
-
-        private MapperConfiguration CTDConfig { get; set; }
-
-        private IMapper DTCMapper { get; set; }
-
-        private IMapper CTDMapper { get; set; }
-
         public CarServices(CarPoolingEfContext context) 
         {
             this.Db = context;
-
-            this.CTDConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Models.Client.Car, Models.Data.Car>();
-            });
-
-            this.DTCConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Models.Data.Car, Models.Client.Car>();
-            });
-
-            this.CTDMapper = this.CTDConfig.CreateMapper();
-
-            this.DTCMapper = this.DTCConfig.CreateMapper();
         }
 
         public bool AddNewCar(Models.Client.Car car,string ownerId)
@@ -43,7 +22,8 @@ namespace CarPoolingEf.Services.Services
             {
                 car.Id = Guid.NewGuid().ToString();
                 car.OwnerId = ownerId;
-                this.Db.Cars.Add(this.CTDMapper.Map<Models.Client.Car, Models.Data.Car>(car));
+                var abc=AppService.Mapping<Models.Client.Car, Models.Data.Car>();
+                this.Db.Cars.Add(AppService.Mapping<Models.Client.Car, Models.Data.Car>().Map<Models.Client.Car, Models.Data.Car>(car));
                 return this.Db.SaveChanges() > 0;
             }
 
@@ -52,12 +32,12 @@ namespace CarPoolingEf.Services.Services
 
         public List<Models.Client.Car> GetCarsByUser(string id)
         {
-            return this.DTCMapper.Map<List<Models.Data.Car>, List<Models.Client.Car>>(this.Db.Cars?.Where(a => a.OwnerId == id).Select(a => a).ToList());
+            return AppService.Mapping<Models.Data.Car, Models.Client.Car>().Map<List<Models.Data.Car>, List<Models.Client.Car>>(this.Db.Cars?.Where(a => a.OwnerId == id).Select(a => a).ToList());
         }
 
         public Models.Client.Car GetCar(string id)
         {
-            return this.DTCMapper.Map<Models.Data.Car, Models.Client.Car>(this.Db.Cars?.FirstOrDefault(a => a.Id == id));
+            return AppService.Mapping<Models.Data.Car, Models.Client.Car>().Map<Models.Data.Car, Models.Client.Car>(this.Db.Cars?.FirstOrDefault(a => a.Id == id));
         }
     }
 }
